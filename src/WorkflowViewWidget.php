@@ -23,6 +23,15 @@ class WorkflowViewWidget extends Widget
      */
     public $visNetworkId;
     /**
+     * @var string Id of the HTML element that is as a container for the
+     * seed of the generated layout
+     */
+    public $seedId; 
+    /**
+     * @var int The number used as seed for the random generation of the layout
+     */
+    public $seed; 
+    /**
      * @var WorkflowInterface the workflow instance to display
      */
 	private $_workflow;
@@ -130,9 +139,14 @@ class WorkflowViewWidget extends Widget
 	    	{				    			    	
 				"physics": {
 					"solver": "repulsion"
+				},
+				"layout": {
+					"randomSeed": {$this->seed}
 				}
 			}
 	    );
+	    
+	    document.getElementById('{$this->seedId}').innerHTML = {$this->visNetworkId}.getSeed();
 
 EOS;
     	return $js;   
